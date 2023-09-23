@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
     for (i = 1; i < argc; i++) {
         FILE *fp = fopen(argv[i], "r");
         if (fp == NULL) {
-            fprintf(stderr, "$s: can't open '%s' (%s)\n",
-                argv[0], argv[i], stderror(errno));
+            fprintf(stderr, "%s: can't open '%s' (%s)\n",
+                argv[0], argv[i], strerror(errno));
             return EXIT_FAILURE;
         }
         else {
@@ -49,7 +49,7 @@ int getword(FILE *fp, char *buf, int size) {
     }
     // copy the word into buf[0..size-1] 5
     int i = 0;
-    for(; c != EOF && isspace(c); c = getc(fp)) {
+    for(; c != EOF && !isspace(c); c = getc(fp)) {
         if (i < size - 1) {
             buf[i++] = tolower(c);
         }
@@ -59,7 +59,7 @@ int getword(FILE *fp, char *buf, int size) {
     }
 
     if (c != EOF) {
-        ungetc(c,, fp);
+        ungetc(c, fp);
     }
     
     // return found a word? 5
@@ -78,7 +78,7 @@ void doubleword(char *name, FILE *fp) {
             if (name) {
                 printf("%s:", name);
             }
-            printf("%d: %s\n", linenum, word");
+            printf("%d: %s\n", linenum, word);
         }
         strcpy(prev, word);
     }
