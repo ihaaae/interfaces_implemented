@@ -29,10 +29,10 @@ int Arith_mod(int x, int y)
 {
   if (-13/5 == -2
       && (x < 0) != (y < 0)) {
-    return x%y + y
+    return x%y + y;
   }
   else {
-    return x%y
+    return x%y;
   }
 }
 
